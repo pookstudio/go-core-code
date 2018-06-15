@@ -12,7 +12,7 @@ var (
 )
 
 const (
-	CONN_HOST = "localhost"
+	CONN_HOST = ""
 	CONN_PORT = "1992"
 	CONN_TYPE = "tcp"
 )
