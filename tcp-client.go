@@ -1,23 +1,37 @@
 package main
 
-import "net"
-import "fmt"
-import "bufio"
-import "os"
-import "time"
-import "strings"
-import "strconv"
-import "log"
+import (
+	"net"
+	"fmt"
+	"bufio"
+	"os"
+	"time"
+	"strings"
+	"strconv"
+	"log"
+)
+
+var (
+	print = fmt.Print
+	println = fmt.Println
+)
 
 func main() {
 
   // connect to this socket
-  conn, _ := net.Dial("tcp", "192.168.42.60:1992")
+	print("input ip : ")
+	var ip string
+	fmt.Scanf("%s", &ip)
+  conn, err := net.Dial("tcp", ip + ":1992")
+  if err != nil {
+  	println("Error connection: ", err.Error())
+  	os.Exit(1)
+  }
   defer conn.Close()
   for { 
     // read in input from stdin
     reader := bufio.NewReader(os.Stdin)
-    fmt.Print("Text to send: ")
+    print("Text to send: ")
     text, err := reader.ReadString('\n')
     if err != nil {
       break
@@ -38,7 +52,7 @@ func main() {
       if err != nil {
         break
       }
-      fmt.Print("Message from server: "+message)
+      print("Message from server: " + message)
     }
   }
 }
